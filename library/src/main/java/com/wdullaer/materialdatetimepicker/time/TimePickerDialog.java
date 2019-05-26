@@ -54,7 +54,7 @@ import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout.OnValueSelect
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
-import java.util.Calendar;
+import com.wdullaer.materialdatetimepicker.util.PersianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -223,8 +223,8 @@ public class TimePickerDialog extends DialogFragment implements
      */
     @SuppressWarnings({"unused", "SameParameterValue"})
     public static TimePickerDialog newInstance(OnTimeSetListener callback, boolean is24HourMode) {
-        Calendar now = Calendar.getInstance();
-        return TimePickerDialog.newInstance(callback, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), is24HourMode);
+        PersianCalendar now = new PersianCalendar();
+        return TimePickerDialog.newInstance(callback, now.get(PersianCalendar.HOUR_OF_DAY), now.get(PersianCalendar.MINUTE), is24HourMode);
     }
 
     public void initialize(OnTimeSetListener callback,

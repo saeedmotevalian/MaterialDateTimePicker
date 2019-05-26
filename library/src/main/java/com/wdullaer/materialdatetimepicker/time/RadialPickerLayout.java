@@ -40,7 +40,7 @@ import android.widget.FrameLayout;
 
 import com.wdullaer.materialdatetimepicker.R;
 
-import java.util.Calendar;
+import com.wdullaer.materialdatetimepicker.util.PersianCalendar;
 import java.util.Locale;
 
 /**
@@ -912,10 +912,10 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         if (event.getEventType() == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             // Clear the event's current text so that only the current time will be spoken.
             event.getText().clear();
-            Calendar time = Calendar.getInstance();
-            time.set(Calendar.HOUR, getHours());
-            time.set(Calendar.MINUTE, getMinutes());
-            time.set(Calendar.SECOND, getSeconds());
+            PersianCalendar time = new PersianCalendar();
+            time.set(PersianCalendar.HOUR, getHours());
+            time.set(PersianCalendar.MINUTE, getMinutes());
+            time.set(PersianCalendar.SECOND, getSeconds());
             long millis = time.getTimeInMillis();
             int flags = DateUtils.FORMAT_SHOW_TIME;
             if (mIs24HourMode) {

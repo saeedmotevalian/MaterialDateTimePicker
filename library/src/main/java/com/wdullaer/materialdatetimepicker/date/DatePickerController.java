@@ -16,7 +16,7 @@
 
 package com.wdullaer.materialdatetimepicker.date;
 
-import java.util.Calendar;
+import com.wdullaer.materialdatetimepicker.util.PersianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -48,9 +48,9 @@ public interface DatePickerController {
 
     int getMaxYear();
 
-    Calendar getStartDate();
+    PersianCalendar getStartDate();
 
-    Calendar getEndDate();
+    PersianCalendar getEndDate();
 
     boolean isOutOfRange(int year, int month, int day);
 

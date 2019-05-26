@@ -36,7 +36,7 @@ import com.wdullaer.materialdatetimepicker.Utils;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog.OnDateChangedListener;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import com.wdullaer.materialdatetimepicker.util.PersianCalendar;
 import java.util.Locale;
 
 /**
@@ -190,7 +190,7 @@ public abstract class DayPickerView extends RecyclerView implements OnDateChange
         }
 
         mTempDay.set(day);
-        int minMonth = mController.getStartDate().get(Calendar.MONTH);
+        int minMonth = mController.getStartDate().getPersianMonth();
         final int position = (day.year - mController.getMinYear())
                 * MonthAdapter.MONTHS_IN_YEAR + day.month - minMonth;
 
@@ -351,13 +351,13 @@ public abstract class DayPickerView extends RecyclerView implements OnDateChange
     }
 
     private static String getMonthAndYearString(MonthAdapter.CalendarDay day, Locale locale) {
-        Calendar cal = Calendar.getInstance();
+        PersianCalendar cal = new PersianCalendar();
         cal.set(day.year, day.month, day.day);
 
         String sbuf = "";
-        sbuf += cal.getDisplayName(Calendar.MONTH, Calendar.LONG, locale);
+        sbuf += cal.getPersianMonthName();
         sbuf += " ";
-        sbuf += YEAR_FORMAT.format(cal.getTime());
+        sbuf += new SimpleDateFormat("MMMM yyyy", locale).format(cal.getTime());
         return sbuf;
     }
 
@@ -390,7 +390,7 @@ public abstract class DayPickerView extends RecyclerView implements OnDateChange
         }
         // Figure out what month is showing.
         int firstVisiblePosition = getFirstVisiblePosition();
-        int minMonth = mController.getStartDate().get(Calendar.MONTH);
+        int minMonth = mController.getStartDate().getPersianMonth();
         int month = (firstVisiblePosition + minMonth) % MonthAdapter.MONTHS_IN_YEAR;
         int year = (firstVisiblePosition + minMonth) / MonthAdapter.MONTHS_IN_YEAR + mController.getMinYear();
         MonthAdapter.CalendarDay day = new MonthAdapter.CalendarDay(year, month, 1, mController.getTimeZone());

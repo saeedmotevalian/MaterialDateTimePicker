@@ -29,7 +29,8 @@ import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 
-import java.util.Calendar;
+import com.wdullaer.materialdatetimepicker.util.PersianCalendar;
+import com.wdullaer.materialdatetimepicker.util.PersianCalendarUtils;
 
 /**
  * Utility helper functions for time and date pickers.
@@ -147,11 +148,22 @@ public class Utils {
      * @param calendar The Calendar object to trim
      * @return The trimmed Calendar object
      */
-    public static Calendar trimToMidnight(Calendar calendar) {
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
+    public static PersianCalendar trimToMidnight(PersianCalendar calendar) {
+        calendar.set(PersianCalendar.HOUR_OF_DAY, 0);
+        calendar.set(PersianCalendar.MINUTE, 0);
+        calendar.set(PersianCalendar.SECOND, 0);
+        calendar.set(PersianCalendar.MILLISECOND, 0);
         return calendar;
+    }
+
+    public static int getDaysInMonth(int month, int year) {
+        if (month < 6) {
+            return 31;
+        } else if (month < 11) {
+            return 30;
+        } else {
+            if (PersianCalendarUtils.isPersianLeapYear(year)) return 30;
+            else return 29;
+        }
     }
 }

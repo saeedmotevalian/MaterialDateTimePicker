@@ -25,7 +25,7 @@ import android.widget.AbsListView.LayoutParams;
 import com.wdullaer.materialdatetimepicker.date.MonthAdapter.MonthViewHolder;
 import com.wdullaer.materialdatetimepicker.date.MonthView.OnDayClickListener;
 
-import java.util.Calendar;
+import com.wdullaer.materialdatetimepicker.util.PersianCalendar;
 import java.util.TimeZone;
 
 /**
@@ -44,7 +44,7 @@ public abstract class MonthAdapter extends RecyclerView.Adapter<MonthViewHolder>
      * A convenience class to represent a specific date.
      */
     public static class CalendarDay {
-        private Calendar calendar;
+        private PersianCalendar calendar;
         int year;
         int month;
         int day;
@@ -60,11 +60,11 @@ public abstract class MonthAdapter extends RecyclerView.Adapter<MonthViewHolder>
             setTime(timeInMillis);
         }
 
-        public CalendarDay(Calendar calendar, TimeZone timeZone) {
+        public CalendarDay(PersianCalendar calendar, TimeZone timeZone) {
             mTimeZone = timeZone;
-            year = calendar.get(Calendar.YEAR);
-            month = calendar.get(Calendar.MONTH);
-            day = calendar.get(Calendar.DAY_OF_MONTH);
+            year = calendar.getPersianYear();
+            month = calendar.getPersianMonth();
+            day = calendar.getPersianDay();
         }
 
         @SuppressWarnings("unused")
@@ -91,12 +91,12 @@ public abstract class MonthAdapter extends RecyclerView.Adapter<MonthViewHolder>
 
         private void setTime(long timeInMillis) {
             if (calendar == null) {
-                calendar = Calendar.getInstance(mTimeZone);
+                calendar = new PersianCalendar();
             }
             calendar.setTimeInMillis(timeInMillis);
-            month = calendar.get(Calendar.MONTH);
-            year = calendar.get(Calendar.YEAR);
-            day = calendar.get(Calendar.DAY_OF_MONTH);
+            month = calendar.getPersianMonth();
+            year = calendar.getPersianYear();
+            day = calendar.getPersianDay();
         }
 
         public int getYear() {
@@ -165,10 +165,10 @@ public abstract class MonthAdapter extends RecyclerView.Adapter<MonthViewHolder>
     }
 
     @Override public int getItemCount() {
-        Calendar endDate = mController.getEndDate();
-        Calendar startDate = mController.getStartDate();
-        int endMonth = endDate.get(Calendar.YEAR) * MONTHS_IN_YEAR + endDate.get(Calendar.MONTH);
-        int startMonth = startDate.get(Calendar.YEAR) * MONTHS_IN_YEAR + startDate.get(Calendar.MONTH);
+        PersianCalendar endDate = mController.getEndDate();
+        PersianCalendar startDate = mController.getStartDate();
+        int endMonth = endDate.getPersianYear() * MONTHS_IN_YEAR + endDate.getPersianMonth();
+        int startMonth = startDate.getPersianYear() * MONTHS_IN_YEAR + startDate.getPersianMonth();
         return endMonth - startMonth + 1;
     }
 
@@ -200,8 +200,8 @@ public abstract class MonthAdapter extends RecyclerView.Adapter<MonthViewHolder>
         }
 
         void bind(int position, DatePickerController mController, CalendarDay selectedCalendarDay) {
-            final int month = (position + mController.getStartDate().get(Calendar.MONTH)) % MONTHS_IN_YEAR;
-            final int year = (position + mController.getStartDate().get(Calendar.MONTH)) / MONTHS_IN_YEAR + mController.getMinYear();
+            final int month = (position + mController.getStartDate().getPersianMonth()) % MONTHS_IN_YEAR;
+            final int year = (position + mController.getStartDate().getPersianMonth()) / MONTHS_IN_YEAR + mController.getMinYear();
 
             int selectedDay = -1;
             if (isSelectedDayInMonth(selectedCalendarDay, year, month)) {

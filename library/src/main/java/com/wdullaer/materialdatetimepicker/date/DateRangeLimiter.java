@@ -19,23 +19,23 @@ package com.wdullaer.materialdatetimepicker.date;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-import java.util.Calendar;
+import com.wdullaer.materialdatetimepicker.util.PersianCalendar;
 
 @SuppressWarnings("WeakerAccess")
 public interface DateRangeLimiter extends Parcelable {
     default int getMinYear() {
-        return getStartDate().get(Calendar.YEAR);
+        return getStartDate().getPersianYear();
     }
 
     default int getMaxYear() {
-        return getEndDate().get(Calendar.YEAR);
+        return getEndDate().getPersianYear();
     }
 
-    @NonNull Calendar getStartDate();
+    @NonNull PersianCalendar getStartDate();
 
-    @NonNull Calendar getEndDate();
+    @NonNull PersianCalendar getEndDate();
 
     boolean isOutOfRange(int year, int month, int day);
 
-    @NonNull Calendar setToNearestDate(@NonNull Calendar day);
+    @NonNull PersianCalendar setToNearestDate(@NonNull PersianCalendar day);
 }

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.util.Calendar;
+import com.wdullaer.materialdatetimepicker.util.PersianCalendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,19 +59,19 @@ public class DatePickerFragment extends Fragment implements DatePickerDialog.OnD
         highlightDays = view.findViewById(R.id.highlight_dates);
 
         view.findViewById(R.id.original_button).setOnClickListener(v -> {
-            Calendar now = Calendar.getInstance();
+            PersianCalendar now = new PersianCalendar();
             new android.app.DatePickerDialog(
                     requireActivity(),
                     (view1, year, month, dayOfMonth) -> Log.d("Orignal", "Got clicked"),
-                    now.get(Calendar.YEAR),
-                    now.get(Calendar.MONTH),
-                    now.get(Calendar.DAY_OF_MONTH)
+                    now.getPersianYear(),
+                    now.getPersianMonth(),
+                    now.getPersianDay()
             ).show();
         });
 
         // Show a datepicker when the dateButton is clicked
         dateButton.setOnClickListener(v -> {
-            Calendar now = Calendar.getInstance();
+            PersianCalendar now = new PersianCalendar();
             /*
             It is recommended to always create a new instance whenever you need to show a Dialog.
             The sample app is reusing them because it is useful when looking for regressions
@@ -80,16 +80,16 @@ public class DatePickerFragment extends Fragment implements DatePickerDialog.OnD
             if (dpd == null) {
                 dpd = DatePickerDialog.newInstance(
                         DatePickerFragment.this,
-                        now.get(Calendar.YEAR),
-                        now.get(Calendar.MONTH),
-                        now.get(Calendar.DAY_OF_MONTH)
+                        now.getPersianYear(),
+                        now.getPersianMonth(),
+                        now.getPersianDay()
                 );
             } else {
                 dpd.initialize(
                         DatePickerFragment.this,
-                        now.get(Calendar.YEAR),
-                        now.get(Calendar.MONTH),
-                        now.get(Calendar.DAY_OF_MONTH)
+                        now.getPersianYear(),
+                        now.getPersianMonth(),
+                        now.getPersianDay()
                 );
             }
             dpd.setThemeDark(modeDarkDate.isChecked());
@@ -104,19 +104,19 @@ public class DatePickerFragment extends Fragment implements DatePickerDialog.OnD
                 dpd.setTitle("DatePicker Title");
             }
             if (highlightDays.isChecked()) {
-                Calendar date1 = Calendar.getInstance();
-                Calendar date2 = Calendar.getInstance();
-                date2.add(Calendar.WEEK_OF_MONTH, -1);
-                Calendar date3 = Calendar.getInstance();
-                date3.add(Calendar.WEEK_OF_MONTH, 1);
-                Calendar[] days = {date1, date2, date3};
+                PersianCalendar date1 = new PersianCalendar();
+                PersianCalendar date2 = new PersianCalendar();
+                date2.add(PersianCalendar.WEEK_OF_MONTH, -1);
+                PersianCalendar date3 = new PersianCalendar();
+                date3.add(PersianCalendar.WEEK_OF_MONTH, 1);
+                PersianCalendar[] days = {date1, date2, date3};
                 dpd.setHighlightedDays(days);
             }
             if (limitSelectableDays.isChecked()) {
-                Calendar[] days = new Calendar[13];
+                PersianCalendar[] days = new PersianCalendar[13];
                 for (int i = -6; i < 7; i++) {
-                    Calendar day = Calendar.getInstance();
-                    day.add(Calendar.DAY_OF_MONTH, i * 2);
+                    PersianCalendar day = new PersianCalendar();
+                    day.add(PersianCalendar.DAY_OF_MONTH, i * 2);
                     days[i + 6] = day;
                 }
                 dpd.setSelectableDays(days);
@@ -144,7 +144,7 @@ public class DatePickerFragment extends Fragment implements DatePickerDialog.OnD
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = "You picked the following date: "+dayOfMonth+"/"+(++monthOfYear)+"/"+year;
+        String date = "You picked the following date: "+dayOfMonth+"/"+(monthOfYear)+"/"+year;
         dateTextView.setText(date);
     }
 }

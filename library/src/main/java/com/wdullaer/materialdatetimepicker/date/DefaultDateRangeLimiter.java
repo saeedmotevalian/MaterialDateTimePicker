@@ -29,8 +29,8 @@ import java.util.TimeZone;
 import java.util.TreeSet;
 
 class DefaultDateRangeLimiter implements DateRangeLimiter {
-    private static final int DEFAULT_START_YEAR = 1397;
-    private static final int DEFAULT_END_YEAR = 1400;
+    private static final int DEFAULT_START_YEAR = 1300;
+    private static final int DEFAULT_END_YEAR = 1500;
 
     private transient DatePickerController mController;
     private int mMinYear = DEFAULT_START_YEAR;

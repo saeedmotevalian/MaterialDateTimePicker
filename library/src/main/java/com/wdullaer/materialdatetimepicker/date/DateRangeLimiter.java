@@ -23,13 +23,8 @@ import com.wdullaer.materialdatetimepicker.util.PersianCalendar;
 
 @SuppressWarnings("WeakerAccess")
 public interface DateRangeLimiter extends Parcelable {
-    default int getMinYear() {
-        return getStartDate().getPersianYear();
-    }
-
-    default int getMaxYear() {
-        return getEndDate().getPersianYear();
-    }
+    int getMinYear();
+    int getMaxYear();
 
     @NonNull PersianCalendar getStartDate();
 

@@ -410,19 +410,25 @@ public class DatePickerDialog extends DialogFragment implements
         mAnimator.setOutAnimation(animation2);
 
         Button okButton = view.findViewById(R.id.mdtp_ok);
-        okButton.setOnClickListener(v -> {
-            tryVibrate();
-            notifyOnDateListener();
-            dismiss();
+        okButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryVibrate();
+                notifyOnDateListener();
+                dismiss();
+            }
         });
         okButton.setTypeface(ResourcesCompat.getFont(activity, R.font.robotomedium));
         if (mOkString != null) okButton.setText(mOkString);
         else okButton.setText(mOkResid);
 
         Button cancelButton = view.findViewById(R.id.mdtp_cancel);
-        cancelButton.setOnClickListener(v -> {
-            tryVibrate();
-            if (getDialog() != null) getDialog().cancel();
+        cancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryVibrate();
+                if (getDialog() != null) getDialog().cancel();
+            }
         });
         cancelButton.setTypeface(ResourcesCompat.getFont(activity, R.font.robotomedium));
         if (mCancelString != null) cancelButton.setText(mCancelString);

@@ -145,9 +145,12 @@ public class YearPickerView extends ListView implements OnItemClickListener, OnD
     }
 
     public void postSetSelectionFromTop(final int position, final int offset) {
-        post(() -> {
-            setSelectionFromTop(position, offset);
-            requestLayout();
+        post(new Runnable() {
+            @Override
+            public void run() {
+                setSelectionFromTop(position, offset);
+                requestLayout();
+            }
         });
     }
 

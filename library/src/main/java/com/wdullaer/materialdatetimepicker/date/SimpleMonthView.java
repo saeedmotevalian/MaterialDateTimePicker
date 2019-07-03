@@ -38,16 +38,16 @@ public class SimpleMonthView extends MonthView {
         if (isHighlighted(year, month, day) && mSelectedDay != day) {
             canvas.drawCircle(x, y + MINI_DAY_NUMBER_TEXT_SIZE - DAY_HIGHLIGHT_CIRCLE_MARGIN,
                     DAY_HIGHLIGHT_CIRCLE_SIZE, mSelectedCirclePaint);
-            mMonthNumPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            mMonthNumPaint.setTypeface(DatePickerDialog.getCustomBoldTypeface() != null ? DatePickerDialog.getCustomBoldTypeface() : Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
         } else {
-            mMonthNumPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+            mMonthNumPaint.setTypeface(DatePickerDialog.getCustomRegularTypeface() != null ? DatePickerDialog.getCustomRegularTypeface() : Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
         }
 
         // gray out the day number if it's outside the range.
         if (mController.isOutOfRange(year, month, day)) {
             mMonthNumPaint.setColor(mDisabledDayTextColor);
         } else if (mSelectedDay == day) {
-            mMonthNumPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            mMonthNumPaint.setTypeface(DatePickerDialog.getCustomBoldTypeface() != null ? DatePickerDialog.getCustomBoldTypeface() : Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
             mMonthNumPaint.setColor(mSelectedDayTextColor);
         } else if (mHasToday && mToday == day) {
             mMonthNumPaint.setColor(mTodayNumberColor);

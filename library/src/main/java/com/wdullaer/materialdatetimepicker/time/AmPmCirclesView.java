@@ -99,7 +99,7 @@ public class AmPmCirclesView extends View {
         mAmPmSelectedTextColor = ContextCompat.getColor(context, R.color.mdtp_white);
 
         String typefaceFamily = res.getString(R.string.mdtp_sans_serif);
-        Typeface tf = Typeface.create(typefaceFamily, Typeface.NORMAL);
+        Typeface tf = TimePickerDialog.getCustomRegularTypeface() != null ? TimePickerDialog.getCustomRegularTypeface() : Typeface.create(typefaceFamily, Typeface.NORMAL);
         mPaint.setTypeface(tf);
         mPaint.setAntiAlias(true);
         mPaint.setTextAlign(Align.CENTER);

@@ -98,9 +98,9 @@ public class RadialTextsView extends View {
         int textColorRes = controller.isThemeDark() ? R.color.mdtp_white : R.color.mdtp_numbers_text_color;
         mPaint.setColor(ContextCompat.getColor(context, textColorRes));
         String typefaceFamily = res.getString(R.string.mdtp_radial_numbers_typeface);
-        mTypefaceLight = Typeface.create(typefaceFamily, Typeface.NORMAL);
+        mTypefaceLight = TimePickerDialog.getCustomRegularTypeface() != null ? TimePickerDialog.getCustomRegularTypeface() : Typeface.create(typefaceFamily, Typeface.NORMAL);
         String typefaceFamilyRegular = res.getString(R.string.mdtp_sans_serif);
-        mTypefaceRegular = Typeface.create(typefaceFamilyRegular, Typeface.NORMAL);
+        mTypefaceRegular = TimePickerDialog.getCustomRegularTypeface() != null ? TimePickerDialog.getCustomRegularTypeface() : Typeface.create(typefaceFamilyRegular, Typeface.NORMAL);
         mPaint.setAntiAlias(true);
         mPaint.setTextAlign(Align.CENTER);
 

@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -64,6 +65,34 @@ import java.util.Locale;
 public class TimePickerDialog extends DialogFragment implements
         OnValueSelectedListener, TimePickerController {
     private static final String TAG = "TimePickerDialog";
+
+    private static Typeface customRegularTypeface = null;
+    private static Typeface customBoldTypeface = null;
+    private static Typeface customLightTypeface = null;
+    private static Typeface customMediumTypeface = null;
+
+    public static void setCustomTypeface(Typeface customRegularTypeface, Typeface customBoldTypeface, Typeface customLightTypeface, Typeface customMediumTypeface) {
+        TimePickerDialog.customRegularTypeface = customRegularTypeface;
+        TimePickerDialog.customBoldTypeface = customBoldTypeface;
+        TimePickerDialog.customLightTypeface = customLightTypeface;
+        TimePickerDialog.customMediumTypeface = customMediumTypeface;
+    }
+
+    public static Typeface getCustomRegularTypeface() {
+        return customRegularTypeface;
+    }
+
+    public static Typeface getCustomBoldTypeface() {
+        return customBoldTypeface;
+    }
+
+    public static Typeface getCustomLightTypeface() {
+        return customLightTypeface;
+    }
+
+    public static Typeface getCustomMediumTypeface() {
+        return customMediumTypeface;
+    }
 
     public enum Version {
         VERSION_1,
@@ -711,6 +740,13 @@ public class TimePickerDialog extends DialogFragment implements
         mPmTextView = view.findViewById(R.id.mdtp_pm_label);
         mPmTextView.setOnKeyListener(keyboardListener);
         mAmPmLayout = view.findViewById(R.id.mdtp_ampm_layout);
+
+        mHourView.setTypeface(TimePickerDialog.getCustomRegularTypeface());
+        mMinuteView.setTypeface(TimePickerDialog.getCustomRegularTypeface());
+        mSecondView.setTypeface(TimePickerDialog.getCustomRegularTypeface());
+        mAmTextView.setTypeface(TimePickerDialog.getCustomRegularTypeface());
+        mPmTextView.setTypeface(TimePickerDialog.getCustomRegularTypeface());
+
         String[] amPmTexts = new DateFormatSymbols(mLocale).getAmPmStrings();
         mAmText = amPmTexts[0];
         mPmText = amPmTexts[1];
@@ -772,7 +808,7 @@ public class TimePickerDialog extends DialogFragment implements
             }
         });
         mOkButton.setOnKeyListener(keyboardListener);
-        mOkButton.setTypeface(ResourcesCompat.getFont(context, R.font.robotomedium));
+        mOkButton.setTypeface(TimePickerDialog.getCustomMediumTypeface() != null ? TimePickerDialog.getCustomMediumTypeface() : ResourcesCompat.getFont(context, R.font.robotomedium));
         if(mOkString != null) mOkButton.setText(mOkString);
         else mOkButton.setText(mOkResid);
 
@@ -784,7 +820,7 @@ public class TimePickerDialog extends DialogFragment implements
                 if (getDialog() != null) getDialog().cancel();
             }
         });
-        mCancelButton.setTypeface(ResourcesCompat.getFont(context, R.font.robotomedium));
+        mCancelButton.setTypeface(TimePickerDialog.getCustomMediumTypeface() != null ? TimePickerDialog.getCustomMediumTypeface() : ResourcesCompat.getFont(context, R.font.robotomedium));
         if(mCancelString != null) mCancelButton.setText(mCancelString);
         else mCancelButton.setText(mCancelResid);
         mCancelButton.setVisibility(isCancelable() ? View.VISIBLE : View.GONE);

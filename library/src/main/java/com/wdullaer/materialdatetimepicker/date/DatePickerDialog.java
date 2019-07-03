@@ -23,6 +23,7 @@ import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -61,6 +62,34 @@ import java.util.TimeZone;
  */
 public class DatePickerDialog extends DialogFragment implements
         OnClickListener, DatePickerController {
+
+    private static Typeface customRegularTypeface = null;
+    private static Typeface customBoldTypeface = null;
+    private static Typeface customLightTypeface = null;
+    private static Typeface customMediumTypeface = null;
+
+    public static void setCustomTypeface(Typeface customRegularTypeface, Typeface customBoldTypeface, Typeface customLightTypeface, Typeface customMediumTypeface) {
+        DatePickerDialog.customRegularTypeface = customRegularTypeface;
+        DatePickerDialog.customBoldTypeface = customBoldTypeface;
+        DatePickerDialog.customLightTypeface = customLightTypeface;
+        DatePickerDialog.customMediumTypeface = customMediumTypeface;
+    }
+
+    public static Typeface getCustomRegularTypeface() {
+        return customRegularTypeface;
+    }
+
+    public static Typeface getCustomBoldTypeface() {
+        return customBoldTypeface;
+    }
+
+    public static Typeface getCustomLightTypeface() {
+        return customLightTypeface;
+    }
+
+    public static Typeface getCustomMediumTypeface() {
+        return customMediumTypeface;
+    }
 
     public enum Version {
         VERSION_1,
@@ -418,7 +447,7 @@ public class DatePickerDialog extends DialogFragment implements
                 dismiss();
             }
         });
-        okButton.setTypeface(ResourcesCompat.getFont(activity, R.font.robotomedium));
+        okButton.setTypeface(DatePickerDialog.getCustomMediumTypeface() != null ? DatePickerDialog.getCustomMediumTypeface() : ResourcesCompat.getFont(activity, R.font.robotomedium));
         if (mOkString != null) okButton.setText(mOkString);
         else okButton.setText(mOkResid);
 
@@ -430,7 +459,7 @@ public class DatePickerDialog extends DialogFragment implements
                 if (getDialog() != null) getDialog().cancel();
             }
         });
-        cancelButton.setTypeface(ResourcesCompat.getFont(activity, R.font.robotomedium));
+        cancelButton.setTypeface(DatePickerDialog.getCustomMediumTypeface() != null ? DatePickerDialog.getCustomMediumTypeface() : ResourcesCompat.getFont(activity, R.font.robotomedium));
         if (mCancelString != null) cancelButton.setText(mCancelString);
         else cancelButton.setText(mCancelResid);
         cancelButton.setVisibility(isCancelable() ? View.VISIBLE : View.GONE);
@@ -579,21 +608,26 @@ public class DatePickerDialog extends DialogFragment implements
 
     private void updateDisplay(boolean announce) {
         mYearView.setText("" + mCalendar.getPersianYear());
+        mYearView.setTypeface(DatePickerDialog.getCustomRegularTypeface());
 
         if (mVersion == Version.VERSION_1) {
             if (mDatePickerHeaderView != null) {
-                if (mTitle != null)
+                if (mTitle != null) {
                     mDatePickerHeaderView.setText(mTitle);
-                else {
+                } else {
                     mDatePickerHeaderView.setText(mCalendar.getPersianWeekDayName());
                 }
+                mDatePickerHeaderView.setTypeface(DatePickerDialog.getCustomRegularTypeface());
             }
             mSelectedMonthTextView.setText(mCalendar.getPersianMonthName());
+            mSelectedMonthTextView.setTypeface(DatePickerDialog.getCustomRegularTypeface());
             mSelectedDayTextView.setText("" + mCalendar.getPersianDay());
+            mSelectedDayTextView.setTypeface(DatePickerDialog.getCustomRegularTypeface());
         }
 
         if (mVersion == Version.VERSION_2) {
             mSelectedDayTextView.setText(mCalendar.getPersianWeekDayName() + " " + mCalendar.getPersianDay() + " " + mCalendar.getPersianMonthName());
+            mSelectedDayTextView.setTypeface(DatePickerDialog.getCustomRegularTypeface());
             if (mTitle != null)
                 mDatePickerHeaderView.setText(mTitle.toUpperCase(mLocale));
             else
